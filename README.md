@@ -42,3 +42,19 @@ Invalid test request
 The requested test does not exist
 
     GTmetrixTestNotFound
+
+Example:
+
+    from gtmetrix import *
+
+    gt = GTmetrixInterface('your@email.com', 'api-key')
+
+    try:
+        my_test = gt.start_test('http://google.com')
+    except GTmetrixInvalidTestRequest:
+        print 'Something goes wrong'
+
+    try:
+        results = gt.poll_state_request(my_test.test_id)
+    except GTmetrixTestNotFound:
+        raise Http404
