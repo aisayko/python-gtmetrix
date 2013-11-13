@@ -21,7 +21,6 @@ Start test:
     gt = GTmetrixInterface('your@email.com', 'api-key')
     my_test = gt.start_test('http://google.com')
 
-
 Fetch results:
 
     results = my_test.get_results()
@@ -29,6 +28,9 @@ Fetch results:
 or
 
     gt.poll_state_request(test_id)
+
+
+List of available params and response attributes you can find [here]: http://gtmetrix.com/api/
 
 
 Exceptions:
