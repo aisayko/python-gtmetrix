@@ -33,5 +33,11 @@ or
 
 Exceptions:
 
-    GTmetrixInvalidTestRequest - Invalid test request
-    GTmetrixTestNotFound - The requested test does not exist.
+Invalid test request
+
+    GTmetrixInvalidTestRequest
+
+
+The requested test does not exist
+
+    GTmetrixTestNotFound
