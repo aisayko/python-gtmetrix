@@ -30,7 +30,7 @@ or
     gt.poll_state_request(test_id)
 
 
-List of available params and response attributes you can find [here]: http://gtmetrix.com/api/
+List of available params and response attributes you can find at http://gtmetrix.com/api/
 
 
 Exceptions:
