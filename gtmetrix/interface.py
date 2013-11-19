@@ -31,6 +31,7 @@ class _TestObject(object):
         self.poll_state_url = (poll_state_url or
                                os.path.join(settings.GTMETRIX_REST_API_URL, test_id))
         self.test_id = test_id
+        self.state = self.STATE_QUEUED
         self.auth = auth
         self.results = {}
         self.har_data = {}
@@ -51,17 +52,19 @@ class _TestObject(object):
 
     def fetch_results(self):
         """Get the test state and results/resources (when test complete)."""
-        results = self._request(self.poll_state_url)
+        response_data = self._request(self.poll_state_url)
 
-        if results['state'] == self.STATE_COMPLETED:
-            resources = results['resources']
+        self.state = response_data['state']
 
-            self.results = results
+        if self.state == self.STATE_COMPLETED:
+            resources = response_data['resources']
+
+            self.results = response_data['results']
             self.har_data = self._request(resources['har'])
             self.speed_data = self._request(resources['pagespeed'])
             self.yslow_data = self._request(resources['yslow'])
 
-        return results
+        return response_data
 
 
 class GTmetrixInterface(object):
