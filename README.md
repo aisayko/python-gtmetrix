@@ -23,11 +23,25 @@ Start test:
 
 Fetch results:
 
-    results = my_test.get_results()
+    my_test.fetch_results()
 
 or
 
-    gt.poll_state_request(test_id)
+    my_test = gt.poll_state_request(test_id)
+
+When test is completed you able to access next data:
+
+    >>> my_test.results
+    {...}
+
+    >>> my_test.har_data
+    {...}
+
+    >>> my_test.speed_data
+    {...}
+
+    >>> my_test.yslow_data
+    {...}
 
 
 List of available params and response attributes you can find at http://gtmetrix.com/api/

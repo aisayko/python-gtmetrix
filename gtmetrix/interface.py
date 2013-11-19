@@ -22,14 +22,23 @@ class GTmetrixTestNotFound(Exception):
 
 class _TestObject(object):
     """GTmetrix Test representation."""
+    STATE_QUEUED = 'queued'
+    STATE_STARTED = 'started'
+    STATE_COMPLETED = 'completed'
+    STATE_ERROR = 'error'
+
     def __init__(self, auth, test_id, poll_state_url=None):
-        self.poll_state_url = poll_state_url
+        self.poll_state_url = (poll_state_url or
+                               os.path.join(settings.GTMETRIX_REST_API_URL, test_id))
         self.test_id = test_id
         self.auth = auth
+        self.results = {}
+        self.har_data = {}
+        self.speed_data = {}
+        self.yslow_data = {}
 
-    def get_results(self):
-        """Get the test state and results/resources (when test complete)."""
-        response = requests.get(self.poll_state_url, auth=self.auth)
+    def _request(self, url):
+        response = requests.get(url, auth=self.auth)
         response_data = response.json()
 
         if response.status_code == 404:
@@ -39,6 +48,20 @@ class _TestObject(object):
             raise GTmetrixInvalidTestRequest(response_data['error'])
 
         return response_data
+
+    def fetch_results(self):
+        """Get the test state and results/resources (when test complete)."""
+        results = self._request(self.poll_state_url)
+
+        if results['state'] == self.STATE_COMPLETED:
+            resources = results['resources']
+
+            self.results = results
+            self.har_data = self._request(resources['har'])
+            self.speed_data = self._request(resources['pagespeed'])
+            self.yslow_data = self._request(resources['yslow'])
+
+        return results
 
 
 class GTmetrixInterface(object):
@@ -58,5 +81,6 @@ class GTmetrixInterface(object):
         return _TestObject(self.auth, **response_data)
 
     def poll_state_request(self, test_id):
-        request_url = os.path.join(settings.GTMETRIX_REST_API_URL, test_id)
-        return _TestObject(self.auth, test_id, request_url).get_results()
+        test = _TestObject(self.auth, test_id)
+        test.fetch_results()
+        return test
