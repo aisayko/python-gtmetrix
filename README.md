@@ -47,6 +47,16 @@ When test is completed you able to access next data:
 List of available params and response attributes you can find at http://gtmetrix.com/api/
 
 
+Utils
+-----------
+
+Get name and weight by YSlow rule id:
+
+    from gtmetrix.utils import YSLOW_RULES
+
+    print YSLOW_RULES
+
+
 Exceptions:
 -----------
 
