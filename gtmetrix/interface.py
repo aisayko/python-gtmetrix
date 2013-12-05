@@ -57,12 +57,11 @@ class _TestObject(object):
         self.state = response_data['state']
 
         if self.state == self.STATE_COMPLETED:
-            resources = response_data['resources']
-
+            self.resources = response_data['resources']
             self.results = response_data['results']
-            self.har_data = self._request(resources['har'])
-            self.speed_data = self._request(resources['pagespeed'])
-            self.yslow_data = self._request(resources['yslow'])
+            self.har_data = self._request(self.resources['har'])
+            self.speed_data = self._request(self.resources['pagespeed'])
+            self.yslow_data = self._request(self.resources['yslow'])
 
         return response_data
 
