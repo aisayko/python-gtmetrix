@@ -10,7 +10,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='python-gtmetrix',
-    version='0.2.2',
+    version='0.2.3',
     url='https://github.com/aisayko/python-gtmetrix',
     license='MIT License',
     author='Alex Isayko',
