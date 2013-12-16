@@ -84,3 +84,7 @@ Example:
         results = gt.poll_state_request(my_test.test_id)
     except GTmetrixTestNotFound:
         raise Http404
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aisayko/python-gtmetrix/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
