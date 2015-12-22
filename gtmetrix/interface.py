@@ -69,7 +69,7 @@ class _TestObject(object):
 
         return response_data
 
-    def fetch_results(self):
+    def fetch_results(self, key):
         """Get the test state and results/resources (when test complete)."""
         response_data = self._request(self.poll_state_url)
 
@@ -82,11 +82,11 @@ class _TestObject(object):
             response_data = self._request(self.poll_state_url)
             self.state = response_data['state']
 
-        self._extract_results(response_data)
+        self._extract_results(response_data, key)
 
         return response_data
 
-    def _extract_results(self, response_data):
+    def _extract_results(self, response_data, key):
         self.results = response_data['results']
         self.pagespeed_score = self.results['pagespeed_score']
         self.yslow_score = self.results['yslow_score']
@@ -96,9 +96,9 @@ class _TestObject(object):
         self.page_load_time = self.results['page_load_time']
         self.page_elements = self.results['page_elements']
 
-        #file = open("results", "w")
-        #file.write("Pagespeed %s Yslow %s Tempo_Carregamento %s Tamanho_Pagina %s Total_Elementos %s" % (self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
-        #file.close()
+        file = open("results", "a")
+        file.write("%s Pagespeed %s Yslow %s Tempo_Carregamento %s Tamanho_Pagina %s Total_Elementos %s " % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
+        file.close()
 
 
 class GTmetrixInterface(object):
@@ -117,8 +117,8 @@ class GTmetrixInterface(object):
 
         return _TestObject(self.auth, **response_data)
 
-    def poll_state_request(self, test_id):
+    def poll_state_request(self, key, test_id):
         test = _TestObject(self.auth, test_id)
-        test.fetch_results()
+        test.fetch_results(key)
         return test
 
