@@ -47,16 +47,6 @@ When test is completed you able to access next data:
 List of available params and response attributes you can find at http://gtmetrix.com/api/
 
 
-Utils
------------
-
-Get name and weight by YSlow rule id:
-
-    from gtmetrix.utils import YSLOW_RULES
-
-    print YSLOW_RULES
-
-
 Exceptions:
 -----------
 
@@ -67,8 +57,16 @@ Invalid test request
 
 The requested test does not exist
 
-    GTmetrixTestNotFound
-
+    GTmetrixTestNotFound 
+    
+The maximum number of API calls reached 
+    
+    GTmetrixMaximumNumberOfApis 
+    
+Too many concurrent requests from your IP    
+    
+    GTmetrixManyConcurrentRequests
+    
 Example:
 
     from gtmetrix import *
