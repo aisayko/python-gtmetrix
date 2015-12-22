@@ -75,14 +75,14 @@ class _TestObject(object):
 
         self.state = response_data['state']
 
-        if self.state == self.STATE_QUEUED:
-            time.sleep(180)
-            self._extract_results(response_data)
-        elif self.state == self.STATE_STARTED:
-            time.sleep(180)
-            self._extract_results(response_data)
-        else:
-            self._extract_results(response_data)
+        acu = 0
+        while not self.state == self.STATE_COMPLETED and (acu < 30):
+            acu += 1
+            time.sleep(30)
+            response_data = self._request(self.poll_state_url)
+            self.state = response_data['state']
+
+        self._extract_results(response_data)
 
         return response_data
 
@@ -96,9 +96,9 @@ class _TestObject(object):
         self.page_load_time = self.results['page_load_time']
         self.page_elements = self.results['page_elements']
 
-        file = open("results", "w")
-        file.write("Pagespeed %s Yslow %s Tempo_Carregamento %s Tamanho_Pagina %s Total_Elementos %s" % (self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
-        file.close()
+        #file = open("results", "w")
+        #file.write("Pagespeed %s Yslow %s Tempo_Carregamento %s Tamanho_Pagina %s Total_Elementos %s" % (self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
+        #file.close()
 
 
 class GTmetrixInterface(object):
