@@ -1,7 +1,8 @@
-import settings
+from gtmetrix import settings
 import requests
 import os.path
 import time
+import datetime
 
 
 __all__ = ['GTmetrixInterface',
@@ -96,8 +97,15 @@ class _TestObject(object):
         self.page_load_time = self.results['page_load_time']
         self.page_elements = self.results['page_elements']
 
-        file = open("results", "a")
-        file.write("%s Pagespeed %s Yslow %s Tempo_Carregamento %s Tamanho_Pagina %s Total_Elementos %s " % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
+        today = datetime.datetime.now()
+        day = today.day
+        month = today.month
+        year = today.year
+
+        name_of_file = "results-%d-%d-%d" % (day,month, year)
+
+        file = open(name_of_file, "a")
+        file.write("site:%s pagespeed:%s yslow:%s tempo_carregamento:%s tamanho_pagina:%s total_elementos:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
         file.close()
 
 
