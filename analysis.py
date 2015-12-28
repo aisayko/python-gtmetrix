@@ -9,7 +9,7 @@ with open('sites.json') as data_file:
     for key, value in list_sites.items():
         print ("Site analisado: %s - Url: %s" % (key, value))
         gt = GTmetrixInterface('equipe-qualidade@infoglobo.com.br', '7207b7afe6497706233d1bcd71f8d891')
-        print ("Iniciando Análise")
+        print ("Iniciando Analise")
         my_test = gt.start_test(value)
         time.sleep(60)
         print ("Gravando resultados")
