@@ -14,47 +14,42 @@ Install package:
 Make tests:
 -----------
 
-Start test:
+Create json with urls:
+    
+    {
+    "google": "http://google.com",
+    }
+
+Start test using json with urls:
 
     from gtmetrix import *
+    import json
 
-    gt = GTmetrixInterface('your@email.com', 'api-key')
-    my_test = gt.start_test('http://google.com')
+    with open('sites.json') as data_file:
+    list_sites = json.load(data_file)
+
+    for key, value in list_sites.items():
+        print ("Site: %s - Url: %s" % (key, value))
+        gt = GTmetrixInterface('your@email.com', 'api-key')
+        my_test = gt.start_test(value)
+        
 
 Fetch results:
 
-    my_test.fetch_results()
+    my_test.fetch_results(key)
 
 or
 
-    my_test = gt.poll_state_request(test_id)
+    results = gt.poll_state_request(key, my_test.test_id)
 
-When test is completed you able to access next data:
+When test is completed you able to access next data in the files:
 
-    >>> my_test.results
-    {...}
-
-    >>> my_test.har_data
-    {...}
-
-    >>> my_test.speed_data
-    {...}
-
-    >>> my_test.yslow_data
-    {...}
+    results-date = pagespeed_score, yslow_score, page_bytes, page_load_time, page_elements
+    resources-date= urls to screenshot, har, pagespeed_url, pagespeed_files, yslow_url,  report_pdf, report_pdf_full
+   
 
 
 List of available params and response attributes you can find at http://gtmetrix.com/api/
-
-
-Utils
------------
-
-Get name and weight by YSlow rule id:
-
-    from gtmetrix.utils import YSLOW_RULES
-
-    print YSLOW_RULES
 
 
 Exceptions:
@@ -67,8 +62,16 @@ Invalid test request
 
 The requested test does not exist
 
-    GTmetrixTestNotFound
-
+    GTmetrixTestNotFound 
+    
+The maximum number of API calls reached 
+    
+    GTmetrixMaximumNumberOfApis 
+    
+Too many concurrent requests from your IP    
+    
+    GTmetrixManyConcurrentRequests
+    
 Example:
 
     from gtmetrix import *
