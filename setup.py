@@ -7,24 +7,7 @@ A Python client library for GTmetrix REST API
 """
 import sys
 
-from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
-
-class PyTest(TestCommand):
-    """Make the tests self-contained within setup.py."""
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = [
-            '--strict',
-            '--verbose',
-            '--tb=long',
-            'tests']
-        self.test_suite = True
-
-    def run_tests(self):
-        import pytest
-        errno = pytest.main(self.test_args)
-        sys.exit(errno)
+from setuptools import setup
 
 
 setup(
@@ -41,9 +24,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms='any',
-    cmdclass={'test': PyTest},
+    setup_requires=['pytest-runner'],
     tests_require=['pytest', 'pytest-cov'],
-    test_suite='tests.test_gtmetrix_api',
     install_requires=['requests>=2.13.0','six>=1.10.0'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',

@@ -1,3 +1,13 @@
+February 4, 2017 -- ssteinerX
+-----------------------------
+
+Add setup.cfg and rearrange setup.py to use current pytest conventions and pytest-runner plugin
+
+Remove Bitdeli badge from README.md, [Bitdeli acquired and shut down](https://www.linkedin.com/in/villetuulos)
+
+	> Bitdeli was powered ... [Ville Tuulos] was the CEO.
+	> Bitdeli was acquired by AdRoll in June 2013.
+
 February 3, 2017 -- ssteinerX
 -----------------------------
 Create add-unit-tests branch to add some unit tests in anticipation of
