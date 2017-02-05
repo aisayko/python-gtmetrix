@@ -4,12 +4,17 @@ GTmetrix Python API
 
 Settings Tests
 
+The success and failure tests just set a good/bad environment, the default
+just tests what it got from importing the settings module.
+
+No API calls are actually made.
+
 This runs three tests:
 
     1> TestGTmetrixSettingsSuccess
 
-        Runs with forced GOOD values.  Quick failure if quickie validations
-        are not working properly.
+        Runs with forced GOOD values.  Will fal if util.* validation
+        methods are not working properly.
 
     2> TestGTmetrixSettingsFailure
 
@@ -21,50 +26,44 @@ This runs three tests:
         tests will be able to run i.e. email, api key, and URL for GTmetrix
         are all set to some values.
 
-        The success and failure tests just set a good/bad environment
-        becalling calling
-
-    TODO: do validation on email format and API key to prevent bogus
-          formats e.g. invalid email
-
 """
-import os
-from unittest import TestCase
 
-import pytest
+from unittest import TestCase
 from pytest import raises
 
 from gtmetrix import settings
-from gtmetrix.interface import GTmetrixInterface
-from gtmetrix.exceptions import GTmetrixMissingEmailOrAPIKey
-from .utils import save_settings, restore_settings
+
+from .utils import (save_settings,
+                    restore_settings,
+                    email_is_valid,
+                    api_key_is_valid,
+                    api_url_is_valid,)
+
 
 class TestGTmetrixSettingsSuccess(TestCase):
-    """Tests that things succeed when they're supposed to.
+    """
+    Tests that things succeed when they're supposed to.
 
-    All tests should pass without exception.
+    Set each settings.* to valid values and make sure they pass validation.
+
+    Saves/restores global settings on entry/exit
     """
     @classmethod
     def setUpClass(cls):
         """Ensure that our settings DO contain valid values."""
-        # save 'settings' module's variables
         save_settings()
-
-        # TODO: enforce real valid values e.g. valid email
         settings.GTMETRIX_REST_API_EMAIL = "email, not testing format"
         settings.GTMETRIX_REST_API_KEY = "a fake api key"
-        # GTMETRIX_REST_API_URL has to be set in settings.py
-        assert(settings.GTMETRIX_REST_API_URL)  # fail if not set!
-        cls.testSettings = TestGTmetrixSettings()
+        cls.settingsTester = TestGTmetrixSettings()
 
     def test_email_OK(self):
-        self.testSettings.test_email_has_value()
+        self.settingsTester.test_email_is_valid()
 
     def test_api_key_OK(self):
-        self.testSettings.test_api_key_has_value()
+        self.settingsTester.test_api_key_is_valid()
 
     def test_url_OK(self):
-        self.testSettings.test_check_gtmetrix_url()
+        self.settingsTester.test_check_gtmetrix_url()
 
     @classmethod
     def tearDownClass(cls):
@@ -75,17 +74,12 @@ class TestGTmetrixSettingsSuccess(TestCase):
 
 
 class TestGTmetrixSettingsFailure(TestCase):
-    """Tests that things fail when they're supposed to.
+    """
+    Tests that things fail when they're supposed to.
 
-    Initializer is:
-        def __init__(self, user_email=None, api_key=None):
+    Set each settings.* value to invalid values, then call validators.
 
-    These tests purposely unset each part of the configuration to ensure
-    that the initializer fails fast if required parameters or settings
-    are not available.
-
-    This localizes the failure so users aren't confused when their API calls
-    fail later due to missing settings being silently ignored.
+    Saves/restores global settings on entry/exit
     """
     @classmethod
     def setUpClass(cls):
@@ -94,19 +88,19 @@ class TestGTmetrixSettingsFailure(TestCase):
         settings.GTMETRIX_REST_API_EMAIL = None
         settings.GTMETRIX_REST_API_KEY = None
         settings.GTMETRIX_REST_API_URL = None
-        cls.testSettings = TestGTmetrixSettings()
+        cls.settingsTester = TestGTmetrixSettings()
 
     def test_email_NOT_OK(self):
         with raises(AssertionError):
-            self.testSettings.test_email_has_value()
+            self.value = self.settingsTester.test_email_is_valid()
 
     def test_api_key_NOT_OK(self):
         with raises(AssertionError):
-            self.testSettings.test_api_key_has_value()
+            self.settingsTester.test_api_key_is_valid()
 
     def test_url_NOT_OK(self):
         with raises(AssertionError):
-            self.testSettings.test_check_gtmetrix_url()
+            self.settingsTester.test_check_gtmetrix_url()
 
     @classmethod
     def tearDownClass(cls):
@@ -114,23 +108,29 @@ class TestGTmetrixSettingsFailure(TestCase):
         restore_settings()
 
 
+
 class TestGTmetrixSettings(TestCase):
-    """Test GTmetrix settings module for valid values.
+    """
+    Test global settings from settings module for valid values.
 
     Uses settings as they exist in environment, if this won't run by itself
-    then tests can't proceed.
+    then API calls can't be made.
 
     The success/failure tests above just set up the environment, then call
-    these tests."""
+    these tests.
 
-    def test_api_key_has_value(self):
-        # TODO: validate format of the key
-        assert (settings.GTMETRIX_REST_API_KEY)
+    NOTE:   there is no initializer here, the settings are available by virtue
+            of the import of the settings and are saved/restored by any
+            tests that modify them.
+    """
 
-    def test_check_gtmetrix_url(self):
+    def test_api_key_is_valid(self):
+        assert api_key_is_valid(settings.GTMETRIX_REST_API_KEY)
+
+    def api_url_is_valid(self):
         """Test whether URL is same as when tests were written."""
-        assert (settings.GTMETRIX_REST_API_URL == 'https://gtmetrix.com/api/0.1/test')
+        assert api_url_is_valid(settings.GTMETRIX_REST_API_URL)
 
-    def test_email_has_value(self):
+    def test_email_is_valid(self):
         # TODO: validate email format
-        assert (settings.GTMETRIX_REST_API_EMAIL)
+        assert email_is_valid(settings.GTMETRIX_REST_API_EMAIL)
