@@ -87,3 +87,8 @@ Example:
         results = gt.poll_state_request(my_test.test_id)
     except GTmetrixTestNotFound:
         raise Http404
+
+Running Tests & Development
+---------------------------
+
+
