@@ -3,7 +3,6 @@ Python GTmetrix API Library
 
 Exceptions
 """
-
 __all__ = [
             'GTmetrixInvalidTestRequest',
             'GTmetrixMissingAPIKey',
@@ -28,17 +27,25 @@ class GTmetrixMissingEmail(Exception):
         self.message = (message or
             "Email must be passed or exist in the settings.")
 
+
 class GTmetrixInvalidEmail(Exception):
     """Email is invalid."""
     def __init__(self, message=None):
         self.message = (message or
             "Email is invalid.")
 
+
 class GTmetrixMissingEmailOrAPIKey(Exception):
-    """Email or API key is not in settings or passed to initializer."""
+    """Email or API key is not in settings or passed to initializer.
+    NOTE: this exception isn't used in actual interface due to specific
+          exceptions for invalid email/key/url taking precedence.  This is
+          used only to validate when invalid test data is produced while
+          testing.
+    """
     def __init__(self, message=None):
         self.message = (message or
             "Email and API key must be passed or exist in the settings.")
+
 
 class GTmetrixInvalidTestRequest(Exception):
     """Invalid test request."""
@@ -54,7 +61,7 @@ class GTmetrixMaximumNumberOfApis(Exception):
     """The maximum number of API calls reached."""
     pass
 
+
 class GTmetrixTestNotFound(Exception):
     """The requested test does not exist."""
     pass
-

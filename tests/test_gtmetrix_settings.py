@@ -48,6 +48,7 @@ class TestGTmetrixSettingsSuccess(TestCase):
 
     Saves/restores global settings on entry/exit
     """
+
     @classmethod
     def setUpClass(cls):
         """Ensure that our settings DO contain valid values."""
@@ -63,7 +64,7 @@ class TestGTmetrixSettingsSuccess(TestCase):
         self.settingsTester.test_api_key_is_valid()
 
     def test_url_OK(self):
-        self.settingsTester.test_check_gtmetrix_url()
+        self.settingsTester.test_api_url_is_valid()
 
     @classmethod
     def tearDownClass(cls):
@@ -81,6 +82,7 @@ class TestGTmetrixSettingsFailure(TestCase):
 
     Saves/restores global settings on entry/exit
     """
+
     @classmethod
     def setUpClass(cls):
         """Ensure that our settings do not contain valid values."""
@@ -92,7 +94,7 @@ class TestGTmetrixSettingsFailure(TestCase):
 
     def test_email_NOT_OK(self):
         with raises(AssertionError):
-            self.value = self.settingsTester.test_email_is_valid()
+            self.settingsTester.test_email_is_valid()
 
     def test_api_key_NOT_OK(self):
         with raises(AssertionError):
@@ -100,13 +102,12 @@ class TestGTmetrixSettingsFailure(TestCase):
 
     def test_url_NOT_OK(self):
         with raises(AssertionError):
-            self.settingsTester.test_check_gtmetrix_url()
+            self.settingsTester.test_api_url_is_valid()
 
     @classmethod
     def tearDownClass(cls):
         """Put settings back as they were before test."""
         restore_settings()
-
 
 
 class TestGTmetrixSettings(TestCase):
@@ -127,7 +128,7 @@ class TestGTmetrixSettings(TestCase):
     def test_api_key_is_valid(self):
         assert api_key_is_valid(settings.GTMETRIX_REST_API_KEY)
 
-    def api_url_is_valid(self):
+    def test_api_url_is_valid(self):
         """Test whether URL is same as when tests were written."""
         assert api_url_is_valid(settings.GTMETRIX_REST_API_URL)
 
