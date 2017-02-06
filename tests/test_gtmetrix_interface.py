@@ -1,165 +1,126 @@
-# """GTmetrix Python API
-#
-# Interface Initializer Tests
-#
-# This runs three tests:
-#
-#
-#     2> TestGTmetrixInterfaceInitializerSuccess
-#
-#         Runs with forced GOOD values.
-#
-#     3> TestGTmetrixInterfaceInitializerFailure
-#
-#         Runs with forced BAD values, test passes if it fails properly.
-#
-#     1> TestGTmetrixInterfaceInitializer
-#
-#         Runs with inherited, unmodified environment.  Succeeds if further
-#         tests will be able to run i.e. email, api key, and URL for GTmetrix
-#         are all set to values.
-#
-#     TODO: do validation on email format and API key to prevent bogus
-#           formats e.g. invalid email.
-#
-# """
-# import os
-# from unittest import TestCase
-#
-# import pytest
-# from pytest import raises
-#
-# from gtmetrix import settings
-# from gtmetrix.interface import GTmetrixInterface
-# from gtmetrix.exceptions import GTmetrixMissingEmailOrAPIKey
-# from .utils import save_settings, restore_settings
-#
-#
-# class TestGTmetrixInitializer(TestCase):
-#     """Tests that things succeed when they're supposed to.
-#
-#     All tests should pass without exception.
-#     """
-#     good_email = "example@example.com"
-#     good_apikey = "abcdef4d91234542222d709124eceaaa"
-#     def _initialize_using_supplied_values(self, user_email=None, api_key=None):
-#         """Create GTmetrixInterface with specified values.
-#         This is meant to be called with values, to call it without values is
-#         an error."""
-#         # Quick test, URL has to be right and both params must be passed
-#         self.check_url()
-#         if not user_email and api_key:
-#             raise GTmetrixMissingEmailOrAPIKey
-#
-#         # All we're testing is object creation
-#         gt = GTmetrixInterface(user_email, api_key)
-#
-#     def test_initializer_supplying_settings_py_settings_manually(self):
-#         """Initialize with the values from settings.py."""
-#         self._initialize_using_supplied_values(
-#             settings.GTMETRIX_REST_API_EMAIL,
-#             settings.GTMETRIX_REST_API_KEY)
-#
-#     def test_initializer_default_settings(self):
-#         # All we're testing is object creation
-#         gt = GTmetrixInterface(user_email, api_key)
-#
-#     def test_initializer_with_bad_emails(self):
-#         bad_emails = ['email has spaces@example.com',
-#                       '@example.no.email.address.just.domain.com'
-#                       'any.other.examples.which.should.fail.find.a.list']
-#         for bad_email in bad_emails:
-#             with raises(GTmetrixInvalidEmail):
-#                 gt = GTmetrixInterface(bad_email, )
-#
-#
-#
-# # class TestGTmetrixInitializerFailure(TestCase):
-# #     """Tests that things fail when they're supposed to.
-#
-# #     Initializer is:
-# #         def __init__(self, user_email=None, api_key=None):
-#
-# #     These tests purposely unset each part of the configuration to ensure
-# #     that the initializer fails fast if required parameters or settings
-# #     are not available.
-#
-# #     This localizes the failure so users aren't confused when their API calls
-# #     fail later due to missing settings being silently ignored.
-# #     """
-# #     @classmethod
-# #     def setUpClass(cls):
-# #         """Ensure that our settings do not contain valid values."""
-# #         save_settings()
-# #         settings.GTMETRIX_REST_API_EMAIL = None
-# #         settings.GTMETRIX_REST_API_KEY = None
-# #         settings.GTMETRIX_REST_API_URL = None
-# #         cls.testInitializer = TestGTmetrixInterfaceInitializer()
-#
-# #     def test_email_NOT_OK(self):
-# #         with raises(AssertionError):
-# #             self.testInitializer.test_email_has_value()
-#
-# #     def test_api_key_NOT_OK(self):
-# #         with raises(AssertionError):
-# #             self.testInitializer.test_api_key_has_value()
-#
-# #     def test_url_NOT_OK(self):
-# #         with raises(AssertionError):
-# #             self.testInitializer.test_check_gtmetrix_url()
-#
-# #     @classmethod
-# #     def tearDownClass(cls):
-# #         """Put settings back as they were before test."""
-# #         restore_settings()
-#
-#
-# class TestGTmetrixInterfaceInitializer(TestCase):
-#     """
-#     Test GTmetrix interface using default and prepared values.
-#     """
-#
-#     def check_url():
-#         """Ensure URL is same as when tests were written."""
-#         assert (settings.GTMETRIX_REST_API_URL == 'https://gtmetrix.com/api/0.1/test')
-#
-#     def test_initialize_using_settings(self):
-#         self.check_url()
-#         gt = GTmetrixInterface(
-#             settings.GTMETRIX_REST_API_EMAIL,
-#             settings.GTMETRIX_REST_API_KEY)
-#
-#
-# # class TestAPI_Authorization(TestCase):
-# #     pass
-#
-#
-# # # class TestGTmetrixInterfaceInitializerFailures(TestCase):
-# # #     # Ensure that email is set for tests.
-# # #     # Set in gtmetrix/settings.py and set manually or by environment.
-# # #     # TBD: move to setup on actual login & call tests
-# # #     def test_email_is_set_in_settings(self):
-# # #         assert (settings.GTMETRIX_REST_API_EMAIL)
-#
-# # #     def test_api_key_is_set_in_settings(self):
-# # #         assert (settings.GTMETRIX_REST_API_KEY)
-#
-# # #     # Exercise the initializer with bad values to make sure we can't get
-# # #     # any further
-# # #     def test_error_on_no_email_or_api_key_on_interface_constructor(self):
-# # #         """Ensure that initialization fails on missing email or api key."""
-# # #         with raises(GTmetrixMissingEmailOrAPIKey):
-# # #             """TBD: kill env vars in test setup"""
-# # #             """Fail if environment vars aren't set"""
-# # #             gt = GTmetrixInterface()
-#
-# # #         with raises(GTmetrixMissingEmailOrAPIKey):
-# # #             # Missing api_key
-# # #             gt = GTmetrixInterface(user_email="no@example.com", api_key=None)
-#
-# # #         with raises(GTmetrixMissingEmailOrAPIKey):
-# # #              gt = GTmetrixInterface(user_email=None, api_key="whatever")
-#
-#
-# # if __name__ == '__main__':
-# #     pytest.main()
+"""GTmetrix Python API
+
+Interface Initializer Tests
+
+This runs three tests:
+
+
+    2> TestGTmetrixInterfaceInitializerSuccess
+
+        Runs with forced GOOD values.
+
+    3> TestGTmetrixInterfaceInitializerFailure
+
+        Runs with forced BAD values, test passes if it fails properly.
+
+    1> TestGTmetrixInterfaceInitializer
+
+        Runs with inherited, unmodified environment.  Succeeds if further
+        tests will be able to run i.e. email, api key, and URL for GTmetrix
+        are all set to values.
+
+"""
+from unittest import TestCase
+
+from pytest import raises
+
+from gtmetrix import settings
+from gtmetrix.interface import GTmetrixInterface
+from gtmetrix.exceptions import (GTmetrixMissingEmailOrAPIKey,
+                                 GTmetrixBadAPIUrl,
+                                 GTmetrixMissingEmail,
+                                 GTmetrixMissingAPIKey)
+
+from .utils import (save_settings,
+                    restore_settings,
+                    api_url_is_valid,
+                    email_is_valid,
+                    api_key_is_valid)
+
+
+def _initialize_using_supplied_values(user_email=None, api_key=None):
+    """
+    Create GTmetrixInterface with specified values.
+
+    This is meant to be called with values, to call it without values is
+    an error.
+    """
+
+    # Quick test, URL has to be right and both params must be passed
+    if not api_url_is_valid(settings.GTMETRIX_REST_API_URL):
+        raise GTmetrixBadAPIUrl
+    if not user_email and api_key:
+        raise GTmetrixMissingEmailOrAPIKey
+
+    # All we're testing is object creation, it should throw appropriate
+    # exceptions which we account for as necessary below.
+    gt = GTmetrixInterface(user_email, api_key)
+
+
+class TestGTmetrixInitializer(TestCase):
+    """
+    Tests GTMetrixInterface initializer.
+
+    This ensures that the class will accept good values and throw
+    correct exceptions on bad.
+
+    Initializer is:
+        def __init__(self, user_email=None, api_key=None):
+
+    Default is to use user_email and api_key from settings.py.
+
+    NOTE:   settings.py, as shipped, pulls in user_email and api_key
+            from environment vars.  See settings.py or docs for required
+            env var names.
+    """
+    good_email = "example@example.com"
+    good_apikey = "abcdef4d91234542222d709124eceaaa"
+
+
+    def test_initializer_supplying_settings_py_settings_manually(self):
+        """Initialize with the values from settings.py."""
+        self._initialize_using_supplied_values(
+            settings.GTMETRIX_REST_API_EMAIL,
+            settings.GTMETRIX_REST_API_KEY)
+
+    def test_initializer_defaulting_from_settings(self):
+        # All we're testing is object creation
+        gt = GTmetrixInterface()
+
+    def test_initializer_with_bad_emails(self):
+        bad_emails = ['email has spaces@example.com',
+                      '@example.no.email.address.just.domain.com'
+                      'any.other.examples.which.should.fail.find.a.list']
+        for bad_email in bad_emails:
+            with raises(GTmetrixInvalidEmail):
+                gt = GTmetrixInterface(bad_email)
+
+    def test_email_equals_None(self):
+        """Ensure that our settings do not contain valid values."""
+        save_settings()
+        settings.GTMETRIX_REST_API_EMAIL = None
+        with raises(GTmetrixMissingEmail):
+            gt = GTmetrixInterface()
+        restore_settings()
+
+
+    def test_api_key_is_None(self):
+        save_settings()
+        settings.GTMETRIX_REST_API_KEY = None
+        with raises(GTmetrixMissingAPIKey):
+            gt = GTmetrixInterface()
+        restore_settings()
+
+     def test_url_is_None(self)
+         save_settings()
+         settings.GTMETRIX_REST_API_URL = None
+         with raises(GTmetrixBadAPIUrl):
+             gt = GTmetrixInterface()
+         restore_settings()
+
+
+class TestAPI_Authorization(TestCase):
+    pass
+
+if __name__ == '__main__':
+    pytest.main()

@@ -5,6 +5,7 @@ Exceptions
 """
 __all__ = [
             'GTmetrixInvalidTestRequest',
+            'GTmetrixBadAPIUrl',
             'GTmetrixMissingAPIKey',
             'GTmetrixMissingEmail',
             'GTmetrixMissingEmailOrAPIKey',
@@ -12,6 +13,11 @@ __all__ = [
             'GTmetrixMaximumNumberOfApis',
             'GTmetrixTestNotFound',
           ]
+
+
+class GTmetrixBadAPIUrl(Exception):
+    """URL is not the same as what was in settings"""
+    pass
 
 
 class GTmetrixMissingAPIKey(Exception):
