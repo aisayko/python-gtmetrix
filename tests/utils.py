@@ -17,7 +17,7 @@ def restore_settings():
 
 
 def email_is_valid(email):
-    """Check for valid email address.  Stubbed out for now"""
+    """Check for valid email address.  Stubbed out for now."""
     return email != None
 
 
