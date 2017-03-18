@@ -15,7 +15,7 @@ Make tests:
 -----------
 
 Create json with urls:
-    
+
     {
     "google": "http://google.com",
     }
@@ -32,7 +32,7 @@ Start test using json with urls:
         print ("Site: %s - Url: %s" % (key, value))
         gt = GTmetrixInterface('your@email.com', 'api-key')
         my_test = gt.start_test(value)
-        
+
 
 Fetch results:
 
@@ -46,7 +46,7 @@ When test is completed you able to access next data in the files:
 
     results-date = pagespeed_score, yslow_score, page_bytes, page_load_time, page_elements
     resources-date= urls to screenshot, har, pagespeed_url, pagespeed_files, yslow_url,  report_pdf, report_pdf_full
-   
+
 
 
 List of available params and response attributes you can find at http://gtmetrix.com/api/
@@ -62,16 +62,16 @@ Invalid test request
 
 The requested test does not exist
 
-    GTmetrixTestNotFound 
-    
-The maximum number of API calls reached 
-    
-    GTmetrixMaximumNumberOfApis 
-    
-Too many concurrent requests from your IP    
-    
+    GTmetrixTestNotFound
+
+The maximum number of API calls reached
+
+    GTmetrixMaximumNumberOfApis
+
+Too many concurrent requests from your IP
+
     GTmetrixManyConcurrentRequests
-    
+
 Example:
 
     from gtmetrix import *
@@ -88,6 +88,7 @@ Example:
     except GTmetrixTestNotFound:
         raise Http404
 
+Running Tests & Development
+---------------------------
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/aisayko/python-gtmetrix/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

@@ -1,33 +1,13 @@
 from gtmetrix import settings
+from gtmetrix.exceptions import *
 import requests
 import os.path
 import time
 import datetime
 
 
-__all__ = ['GTmetrixInterface',
-           'GTmetrixInvalidTestRequest',
-           'GTmetrixTestNotFound',
-           'GTmetrixMaximumNumberOfApis',
-           'GTmetrixManyConcurrentRequests']
+__all__ = ['GTmetrixInterface',]
 
-
-class GTmetrixInvalidTestRequest(Exception):
-    """Invalid test request."""
-    pass
-
-
-class GTmetrixTestNotFound(Exception):
-    """The requested test does not exist."""
-    pass
-
-class GTmetrixMaximumNumberOfApis(Exception):
-    """The maximum number of API calls reached."""
-    pass
-
-class GTmetrixManyConcurrentRequests(Exception):
-    """Too many concurrent requests from your IP."""
-    pass
 
 class _TestObject(object):
     """GTmetrix Test representation."""
@@ -134,8 +114,33 @@ class _TestObject(object):
 
 class GTmetrixInterface(object):
     """Provides an interface to access GTmetrix REST API."""
-    def __init__(self, user_email, api_key):
-        self.auth = (user_email, api_key)
+    def __init__(self, user_email=None, api_key=None):
+        # Validate and set instance variables
+        self.set_auth_email_and_key(user_email, api_key)
+        self.auth = (self.user_email, self.api_key)
+
+    def set_auth_email_and_key(self, user_email=None, api_key=None):
+        # Get from params or default to values from settings
+        self.user_email = user_email or settings.GTMETRIX_REST_API_EMAIL
+        self.api_key = api_key or settings.GTMETRIX_REST_API_KEY
+
+        # Make sure they're valid
+        validate_user_email()
+        validate_api_key()
+
+    def validate_user_email():
+        """TODO: write further validation."""
+        if not self.user_email:
+            raise GTmetrixMissingEmail()
+
+        return True
+
+    def validate_api_key():
+        """TODO: write further validation."""
+        if not self.api_key:
+            raise GTmetrixMissingAPIKey()
+
+        return True
 
     def start_test(self, url, **data):
         """ Start a Test """
