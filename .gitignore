@@ -6,3 +6,4 @@ build/
 .eggs/
 .idea/
 __pycache__
+.tox/
