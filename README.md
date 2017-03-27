@@ -59,7 +59,6 @@ Invalid test request
 
     GTmetrixInvalidTestRequest
 
-
 The requested test does not exist
 
     GTmetrixTestNotFound
@@ -88,7 +87,38 @@ Example:
     except GTmetrixTestNotFound:
         raise Http404
 
-Running Tests & Development
----------------------------
+Running Tests & Development:
+----------------------------
 
+In order to run the tests you can either checkout from the main repo at 
+[GitHub](https://github.com/aisayko/python-gtmetrix.git), or download the 
+zip file or what have you.
+
+Create a new virtual environment, however you do that, and run:
+
+    pip install -r requirements.txt
+    
+Then, make it so you're running off your checkout:
+    
+    python setup.py develop
+    
+Run the tests to make sure you're at a good starting point.  
+
+The tests are currently run against Python 2.7.x, Python 3.5.x, and Python 3
+.6.x.  Do this with:
+
+    tox
+    
+You should see:
+    
+    ____________________ summary ____________________
+    py27: commands succeeded
+    py35: commands succeeded
+    py36: commands succeeded
+    congratulations :)
+
+At this point, you will be testing your own checkout and can proceed to fix 
+bugs, improve documentation, etc.  For a list of what's needed, see the 
+[issue tracker](https://github.com/aisayko/python-gtmetrix/issues). 
+ 
 

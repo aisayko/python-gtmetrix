@@ -1,10 +1,12 @@
-from gtmetrix import settings
-from gtmetrix.exceptions import *
 import requests
 import os.path
 import time
 import datetime
 
+from gtmetrix import settings
+from gtmetrix.exceptions import *
+from gtmetrix.utils import  (validate_email,
+                             validate_api_key)
 
 __all__ = ['GTmetrixInterface',]
 
@@ -125,22 +127,16 @@ class GTmetrixInterface(object):
         self.api_key = api_key or settings.GTMETRIX_REST_API_KEY
 
         # Make sure they're valid
-        validate_user_email()
-        validate_api_key()
+        self.validate_user_email()
+        self.validate_api_key()
 
-    def validate_user_email():
-        """TODO: write further validation."""
-        if not self.user_email:
-            raise GTmetrixMissingEmail()
+    def validate_user_email(self):
+        """Hook for user email validation."""
+        return validate_email(self.user_email)
 
-        return True
-
-    def validate_api_key():
-        """TODO: write further validation."""
-        if not self.api_key:
-            raise GTmetrixMissingAPIKey()
-
-        return True
+    def validate_api_key(self):
+        """Hook for api key validation."""
+        return validate_api_key(self.api_key)
 
     def start_test(self, url, **data):
         """ Start a Test """

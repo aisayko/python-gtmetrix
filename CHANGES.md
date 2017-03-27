@@ -1,6 +1,18 @@
+March 25, 2017 -- ssteinerX
+---------------------------
+Refactored and simplified tests while making them more thorough.
+
+Updated tests to run under [tox](https://tox.readthedocs.io/en/latest/) and 
+separated the inherited runtime environment from the tests.
+
+Tests currently pass on all the environments in which the project is 
+supposed to run: 2.7, 3.5, and 3.6.
+
+Updated docs to show how to run tests and how to work in development mode for
+anyone who wants to contribute to the project.
+
 February 4, 2017 -- ssteinerX
 -----------------------------
-
 Add setup.cfg and rearrange setup.py to use current pytest conventions and pytest-runner plugin
 
 Remove Bitdeli badge from README.md, [Bitdeli acquired and shut down](https://www.linkedin.com/in/villetuulos)

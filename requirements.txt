@@ -1,12 +1,19 @@
-appdirs==1.4.0
+appdirs==1.4.3
 coverage==4.3.4
+cycler==0.10.0
+matplotlib==2.0.0
 nose2==0.6.5
+numpy==1.12.1
 packaging==16.8
-py==1.4.32
-pyparsing==2.1.10
-pytest==3.0.6
+pluggy==0.4.0
+py==1.4.33
+pyparsing==2.2.0
+pytest==3.0.7
 pytest-cov==2.4.0
-pytest-runner==2.11
--e git+ssh://git@bitbucket.org/ssteinerx/python-gtmetrix.git@a7fbe610767aa724e0a24df8418c7046252aaaf7#egg=python_gtmetrix
+pytest-runner==2.11.1
+python-dateutil==2.6.0
+pytz==2016.10
 requests==2.13.0
 six==1.10.0
+tox==2.6.0
+virtualenv==15.1.0
