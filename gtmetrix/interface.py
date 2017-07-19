@@ -23,6 +23,7 @@ class _TestObject(object):
                                os.path.join(settings.GTMETRIX_REST_API_URL, test_id))
         self.test_id = test_id
         self.state = self.STATE_QUEUED
+        self.credits_left = 0
         self.auth = auth
         self.results = {}
         self.resources = {}
