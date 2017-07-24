@@ -18,10 +18,11 @@ class _TestObject(object):
     STATE_COMPLETED = 'completed'
     STATE_ERROR = 'error'
 
-    def __init__(self, auth, test_id, poll_state_url=None):
+    def __init__(self, auth, test_id, poll_state_url=None, credits_left=None):
         self.poll_state_url = (poll_state_url or
                                os.path.join(settings.GTMETRIX_REST_API_URL, test_id))
         self.test_id = test_id
+        self.credits_left = credits_left
         self.state = self.STATE_QUEUED
         self.auth = auth
         self.results = {}
