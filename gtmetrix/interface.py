@@ -24,6 +24,7 @@ class _TestObject(object):
         self.test_id = test_id
         self.credits_left = credits_left
         self.state = self.STATE_QUEUED
+        self.credits_left = 0
         self.auth = auth
         self.results = {}
         self.resources = {}
