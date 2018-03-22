@@ -78,38 +78,38 @@ class _TestObject(object):
 
         return response_data
 
+    def _get_result( self, key, dflt ):
+      return self.results[ key ] if key in self.results else dflt
+
     def _extract_results(self, response_data, key):
+      today = datetime.datetime.now()
+      day = today.day
+      month = today.month
+      year = today.year
+      if 'results' in response_data:
         self.results = response_data['results']
-        self.pagespeed_score = self.results['pagespeed_score']
-        self.yslow_score = self.results['yslow_score']
-        self.html_bytes = self.results['html_bytes']
-        self.html_load_time = self.results['html_load_time']
-        self.page_bytes = self.results['page_bytes']
-        self.page_load_time = self.results['page_load_time']
-        self.page_elements = self.results['page_elements']
-
-        self.resources = response_data['resources']
-        self.screenshot = self.resources['screenshot']
-        self.har = self.resources['har']
-        self.pagespeed_url = self.resources['pagespeed']
-        self.pagespeed_files = self.resources['pagespeed_files']
-        self.yslow_url = self.resources['yslow']
-        self.report_pdf = self.resources['report_pdf']
-        self.report_pdf_full = self.resources['report_pdf_full']
-
-
-        today = datetime.datetime.now()
-        day = today.day
-        month = today.month
-        year = today.year
-
+        self.pagespeed_score = self.get( 'pagespeed_score', '' )
+        self.yslow_score = self.get( 'yslow_score', '' )
+        self.html_bytes = self.get( 'html_bytes', '' )
+        self.html_load_time = self.get( 'html_load_time', '' )
+        self.page_bytes = self.get( 'page_bytes', '' )
+        self.page_load_time = self.get( 'page_load_time', '' )
+        self.page_elements = self.get( 'page_elements', '' )
         name_of_file_results = "results-%d-%d-%d" % (day,month, year)
-        name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
-
         file = open(name_of_file_results, "a")
         file.write("site:%s pagespeed_score:%s yslow_score:%s page_load_time:%s page_bytes:%s page_elements:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
         file.close()
 
+      if 'resources' in response_data:
+        self.resources = response_data['resources']
+        self.screenshot = self.get( 'screenshot', '' )
+        self.har = self.get( 'har', '' )
+        self.pagespeed_url = self.get( 'pagespeed', '' )
+        self.pagespeed_files = self.get( 'pagespeed_files', '' )
+        self.yslow_url = self.get( 'yslow', '' )
+        self.report_pdf = self.get( 'report_pdf', '' )
+        self.report_pdf_full = self.get( 'report_pdf_full', '' )
+        name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
         file = open(name_of_file_resources, "a")
         file.write("site:%s screenshot:%s har:%s pagespeed_url:%s pagespeed_files:%s yslow_url:%s  report_pdf:%s report_pdf_full:%s  \n" % (key, self.screenshot, self.har, self.pagespeed_url, self.pagespeed_files, self.yslow_url, self.report_pdf, self.report_pdf_full))
         file.close()
@@ -155,4 +155,3 @@ class GTmetrixInterface(object):
         test = _TestObject(self.auth, test_id)
         test.fetch_results(key)
         return test
-
