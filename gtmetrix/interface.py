@@ -88,13 +88,13 @@ class _TestObject(object):
       year = today.year
       if 'results' in response_data:
         self.results = response_data['results']
-        self.pagespeed_score = self.get( 'pagespeed_score' )
-        self.yslow_score = self.get( 'yslow_score' )
-        self.html_bytes = self.get( 'html_bytes' )
-        self.html_load_time = self.get( 'html_load_time' )
-        self.page_bytes = self.get( 'page_bytes' )
-        self.page_load_time = self.get( 'page_load_time' )
-        self.page_elements = self.get( 'page_elements' )
+        self.pagespeed_score = self._get_result( 'pagespeed_score' )
+        self.yslow_score = self._get_result( 'yslow_score' )
+        self.html_bytes = self._get_result( 'html_bytes' )
+        self.html_load_time = self._get_result( 'html_load_time' )
+        self.page_bytes = self._get_result( 'page_bytes' )
+        self.page_load_time = self._get_result( 'page_load_time' )
+        self.page_elements = self._get_result( 'page_elements' )
         name_of_file_results = "results-%d-%d-%d" % (day,month, year)
         file = open(name_of_file_results, "a")
         file.write("site:%s pagespeed_score:%s yslow_score:%s page_load_time:%s page_bytes:%s page_elements:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
@@ -102,13 +102,13 @@ class _TestObject(object):
 
       if 'resources' in response_data:
         self.resources = response_data['resources']
-        self.screenshot = self.get( 'screenshot' )
-        self.har = self.get( 'har' )
-        self.pagespeed_url = self.get( 'pagespeed' )
-        self.pagespeed_files = self.get( 'pagespeed_files' )
-        self.yslow_url = self.get( 'yslow' )
-        self.report_pdf = self.get( 'report_pdf' )
-        self.report_pdf_full = self.get( 'report_pdf_full' )
+        self.screenshot = self._get_result( 'screenshot' )
+        self.har = self._get_result( 'har' )
+        self.pagespeed_url = self._get_result( 'pagespeed' )
+        self.pagespeed_files = self._get_result( 'pagespeed_files' )
+        self.yslow_url = self._get_result( 'yslow' )
+        self.report_pdf = self._get_result( 'report_pdf' )
+        self.report_pdf_full = self._get_result( 'report_pdf_full' )
         name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
         file = open(name_of_file_resources, "a")
         file.write("site:%s screenshot:%s har:%s pagespeed_url:%s pagespeed_files:%s yslow_url:%s  report_pdf:%s report_pdf_full:%s  \n" % (key, self.screenshot, self.har, self.pagespeed_url, self.pagespeed_files, self.yslow_url, self.report_pdf, self.report_pdf_full))
