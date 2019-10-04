@@ -13,7 +13,7 @@ pytest-cov==2.4.0
 pytest-runner==2.11.1
 python-dateutil==2.6.0
 pytz==2016.10
-requests==2.13.0
+requests==2.20.0
 six==1.10.0
 tox==2.6.0
 virtualenv==15.1.0
