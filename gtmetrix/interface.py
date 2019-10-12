@@ -80,6 +80,9 @@ class _TestObject(object):
 
     def _get_result( self, key, dflt='' ):
       return self.results[ key ] if key in self.results else dflt
+    
+    def _get_resource( self, key, dflt='' ):
+      return self.resources[ key ] if key in self.resources else dflt
 
     def _extract_results(self, response_data, key):
       today = datetime.datetime.now()
@@ -102,13 +105,13 @@ class _TestObject(object):
 
       if 'resources' in response_data:
         self.resources = response_data['resources']
-        self.screenshot = self._get_result( 'screenshot' )
-        self.har = self._get_result( 'har' )
-        self.pagespeed_url = self._get_result( 'pagespeed' )
-        self.pagespeed_files = self._get_result( 'pagespeed_files' )
-        self.yslow_url = self._get_result( 'yslow' )
-        self.report_pdf = self._get_result( 'report_pdf' )
-        self.report_pdf_full = self._get_result( 'report_pdf_full' )
+        self.screenshot = self._get_resource( 'screenshot' )
+        self.har = self._get_resource( 'har' )
+        self.pagespeed_url = self._get_resource( 'pagespeed' )
+        self.pagespeed_files = self._get_resource( 'pagespeed_files' )
+        self.yslow_url = self._get_resource( 'yslow' )
+        self.report_pdf = self._get_resource( 'report_pdf' )
+        self.report_pdf_full = self._get_resource( 'report_pdf_full' )
         name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
         file = open(name_of_file_resources, "a")
         file.write("site:%s screenshot:%s har:%s pagespeed_url:%s pagespeed_files:%s yslow_url:%s  report_pdf:%s report_pdf_full:%s  \n" % (key, self.screenshot, self.har, self.pagespeed_url, self.pagespeed_files, self.yslow_url, self.report_pdf, self.report_pdf_full))
