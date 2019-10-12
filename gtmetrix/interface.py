@@ -98,10 +98,10 @@ class _TestObject(object):
         self.page_bytes = self._get_result( 'page_bytes' )
         self.page_load_time = self._get_result( 'page_load_time' )
         self.page_elements = self._get_result( 'page_elements' )
-        name_of_file_results = "results-%d-%d-%d" % (day,month, year)
-        file = open(name_of_file_results, "a")
-        file.write("site:%s pagespeed_score:%s yslow_score:%s page_load_time:%s page_bytes:%s page_elements:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
-        file.close()
+        #name_of_file_results = "results-%d-%d-%d" % (day,month, year)
+        #file = open(name_of_file_results, "a")
+        #file.write("site:%s pagespeed_score:%s yslow_score:%s page_load_time:%s page_bytes:%s page_elements:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
+        #file.close()
 
       if 'resources' in response_data:
         self.resources = response_data['resources']
@@ -112,10 +112,10 @@ class _TestObject(object):
         self.yslow_url = self._get_resource( 'yslow' )
         self.report_pdf = self._get_resource( 'report_pdf' )
         self.report_pdf_full = self._get_resource( 'report_pdf_full' )
-        name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
-        file = open(name_of_file_resources, "a")
-        file.write("site:%s screenshot:%s har:%s pagespeed_url:%s pagespeed_files:%s yslow_url:%s  report_pdf:%s report_pdf_full:%s  \n" % (key, self.screenshot, self.har, self.pagespeed_url, self.pagespeed_files, self.yslow_url, self.report_pdf, self.report_pdf_full))
-        file.close()
+        #name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
+        #file = open(name_of_file_resources, "a")
+        #file.write("site:%s screenshot:%s har:%s pagespeed_url:%s pagespeed_files:%s yslow_url:%s  report_pdf:%s report_pdf_full:%s  \n" % (key, self.screenshot, self.har, self.pagespeed_url, self.pagespeed_files, self.yslow_url, self.report_pdf, self.report_pdf_full))
+        #file.close()
 
 
 
