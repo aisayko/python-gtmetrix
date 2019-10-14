@@ -35,6 +35,18 @@ class _TestObject(object):
         self.page_bytes = {}
         self.page_load_time = {}
         self.page_elements ={}
+        self.redirect_duration = {}
+        self.connect_duration = {}
+        self.backend_duration = {}
+        self.first_paint_time = {}
+        self.first_contentful_paint_time = {}
+        self.dom_interactive_time = {}
+        self.dom_content_loaded_time = {}
+        self.dom_content_loaded_duration = {}
+        self.onload_time = {}
+        self.onload_duration = {}
+        self.fully_loaded_time = {}
+        self.rum_speed_index = {}
         self.screenshot ={}
         self.har = {}
         self.pagespeed_url ={}
@@ -98,6 +110,18 @@ class _TestObject(object):
         self.page_bytes = self._get_result( 'page_bytes' )
         self.page_load_time = self._get_result( 'page_load_time' )
         self.page_elements = self._get_result( 'page_elements' )
+        self.redirect_duration = self._get_result( 'redirect_duration' )
+        self.connect_duration = self._get_result( 'connect_duration' )
+        self.backend_duration = self._get_result( 'backend_duration' )
+        self.first_paint_time = self._get_result( 'first_paint_time' )
+        self.first_contentful_paint_time = self._get_result( 'first_contentful_paint_time' )
+        self.dom_interactive_time = self._get_result( 'dom_interactive_time' )
+        self.dom_content_loaded_time = self._get_result( 'dom_content_loaded_time' )
+        self.dom_content_loaded_duration = self._get_result( 'dom_content_loaded_duration' )
+        self.onload_time = self._get_result( 'onload_time' )
+        self.onload_duration = self._get_result( 'onload_duration' )
+        self.fully_loaded_time = self._get_result( 'fully_loaded_time' )
+        self.rum_speed_index = self._get_result( 'rum_speed_index' )
         #name_of_file_results = "results-%d-%d-%d" % (day,month, year)
         #file = open(name_of_file_results, "a")
         #file.write("site:%s pagespeed_score:%s yslow_score:%s page_load_time:%s page_bytes:%s page_elements:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
