@@ -35,6 +35,18 @@ class _TestObject(object):
         self.page_bytes = {}
         self.page_load_time = {}
         self.page_elements ={}
+        self.redirect_duration = {}
+        self.connect_duration = {}
+        self.backend_duration = {}
+        self.first_paint_time = {}
+        self.first_contentful_paint_time = {}
+        self.dom_interactive_time = {}
+        self.dom_content_loaded_time = {}
+        self.dom_content_loaded_duration = {}
+        self.onload_time = {}
+        self.onload_duration = {}
+        self.fully_loaded_time = {}
+        self.rum_speed_index = {}
         self.screenshot ={}
         self.har = {}
         self.pagespeed_url ={}
@@ -80,6 +92,9 @@ class _TestObject(object):
 
     def _get_result( self, key, dflt='' ):
       return self.results[ key ] if key in self.results else dflt
+    
+    def _get_resource( self, key, dflt='' ):
+      return self.resources[ key ] if key in self.resources else dflt
 
     def _extract_results(self, response_data, key):
       today = datetime.datetime.now()
@@ -95,24 +110,36 @@ class _TestObject(object):
         self.page_bytes = self._get_result( 'page_bytes' )
         self.page_load_time = self._get_result( 'page_load_time' )
         self.page_elements = self._get_result( 'page_elements' )
-        name_of_file_results = "results-%d-%d-%d" % (day,month, year)
-        file = open(name_of_file_results, "a")
-        file.write("site:%s pagespeed_score:%s yslow_score:%s page_load_time:%s page_bytes:%s page_elements:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
-        file.close()
+        self.redirect_duration = self._get_result( 'redirect_duration' )
+        self.connect_duration = self._get_result( 'connect_duration' )
+        self.backend_duration = self._get_result( 'backend_duration' )
+        self.first_paint_time = self._get_result( 'first_paint_time' )
+        self.first_contentful_paint_time = self._get_result( 'first_contentful_paint_time' )
+        self.dom_interactive_time = self._get_result( 'dom_interactive_time' )
+        self.dom_content_loaded_time = self._get_result( 'dom_content_loaded_time' )
+        self.dom_content_loaded_duration = self._get_result( 'dom_content_loaded_duration' )
+        self.onload_time = self._get_result( 'onload_time' )
+        self.onload_duration = self._get_result( 'onload_duration' )
+        self.fully_loaded_time = self._get_result( 'fully_loaded_time' )
+        self.rum_speed_index = self._get_result( 'rum_speed_index' )
+        #name_of_file_results = "results-%d-%d-%d" % (day,month, year)
+        #file = open(name_of_file_results, "a")
+        #file.write("site:%s pagespeed_score:%s yslow_score:%s page_load_time:%s page_bytes:%s page_elements:%s \n" % (key, self.pagespeed_score, self.yslow_score, self.page_load_time, self.page_bytes, self.page_elements))
+        #file.close()
 
       if 'resources' in response_data:
         self.resources = response_data['resources']
-        self.screenshot = self._get_result( 'screenshot' )
-        self.har = self._get_result( 'har' )
-        self.pagespeed_url = self._get_result( 'pagespeed' )
-        self.pagespeed_files = self._get_result( 'pagespeed_files' )
-        self.yslow_url = self._get_result( 'yslow' )
-        self.report_pdf = self._get_result( 'report_pdf' )
-        self.report_pdf_full = self._get_result( 'report_pdf_full' )
-        name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
-        file = open(name_of_file_resources, "a")
-        file.write("site:%s screenshot:%s har:%s pagespeed_url:%s pagespeed_files:%s yslow_url:%s  report_pdf:%s report_pdf_full:%s  \n" % (key, self.screenshot, self.har, self.pagespeed_url, self.pagespeed_files, self.yslow_url, self.report_pdf, self.report_pdf_full))
-        file.close()
+        self.screenshot = self._get_resource( 'screenshot' )
+        self.har = self._get_resource( 'har' )
+        self.pagespeed_url = self._get_resource( 'pagespeed' )
+        self.pagespeed_files = self._get_resource( 'pagespeed_files' )
+        self.yslow_url = self._get_resource( 'yslow' )
+        self.report_pdf = self._get_resource( 'report_pdf' )
+        self.report_pdf_full = self._get_resource( 'report_pdf_full' )
+        #name_of_file_resources = "resources-%d-%d-%d" % (day,month, year)
+        #file = open(name_of_file_resources, "a")
+        #file.write("site:%s screenshot:%s har:%s pagespeed_url:%s pagespeed_files:%s yslow_url:%s  report_pdf:%s report_pdf_full:%s  \n" % (key, self.screenshot, self.har, self.pagespeed_url, self.pagespeed_files, self.yslow_url, self.report_pdf, self.report_pdf_full))
+        #file.close()
 
 
 
