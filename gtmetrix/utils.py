@@ -112,7 +112,7 @@ YSLOW_RULES = {
 
 # Snagged from: https://www.scottbrady91.com/Email-Verification/Python-Email-Verification-Script
 email_re = re.compile(
-    '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(''\.[a-z]{2,''4})$')
+    '^[_a-z0-9+-]+(\.[_a-z0-9+-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(''\.[a-z]{2,''4})$')
 
 
 def validate_email(email):
