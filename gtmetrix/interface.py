@@ -80,7 +80,7 @@ class _TestObject(object):
         self.state = response_data['state']
 
         number_executions = 0
-        while not self.state == self.STATE_COMPLETED and (number_executions < 30):
+        while self.state not in [self.STATE_COMPLETED, self.STATE_ERROR] and (number_executions < 30):
             number_executions += 1
             time.sleep(30)
             response_data = self._request(self.poll_state_url)
