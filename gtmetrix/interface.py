@@ -82,7 +82,7 @@ class _TestObject(object):
         number_executions = 0
         while not self.state == self.STATE_COMPLETED and (number_executions < 30):
             number_executions += 1
-            time.sleep(30)
+            time.sleep(3)
             response_data = self._request(self.poll_state_url)
             self.state = response_data['state']
 
