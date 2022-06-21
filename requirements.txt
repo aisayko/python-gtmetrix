@@ -3,7 +3,7 @@ coverage==4.3.4
 cycler==0.10.0
 matplotlib==2.0.0
 nose2==0.6.5
-numpy==1.12.1
+numpy==1.22.0
 packaging==16.8
 pluggy==0.4.0
 py==1.4.33
